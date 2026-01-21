@@ -54,6 +54,21 @@ variable "target_group_name" {
   type = string
 }
 
+variable "target_group_protocol" {
+  type = string
+}
+
+variable "target_group_port" {
+  type = number
+}
+
+variable "health_check_path" {
+  type = string
+}
+
+variable "ssl_policy" {
+  type = string
+}
 variable "health_check_protocol" {
   type = string
 }
