@@ -73,10 +73,6 @@ variable "lb_listner_certificate_arn_root" {
   default = null
 }
 
-variable "common_tags" {
-  type = map(string)
-}
-
 ## Autoscaling groups 
 
 variable "asg_name_root" {

@@ -14,7 +14,7 @@ module "vpc" {
 
 module "security_group" {
   for_each = var.security_groups_root
-  source   = "./Modules/security-group"
+  source   = "../../Modules/security_group"
 
   sg_name = each.key
   vpc_id  = module.vpc.vpc_id
@@ -29,10 +29,10 @@ module "alb" {
   source = "../../modules/alb"
 
   lb_name               = var.lb_name_root 
-  lb_security_group_ids = [module.security_group["alb-sg"].sg_id]
-  lb_subnet_ids         = module.vpc.public_subnet_ids_root
+  lb_security_group_ids = [module.security_group["alb-sg"].security_group_id]
+  lb_subnet_ids         = module.vpc.public_subnet_ids
 
-  vpc_id                = module.vpc.vpc_id_root
+  vpc_id                = module.vpc.vpc_id
   target_group_name     = var.target_group_name_root
   target_group_protocol = var.target_group_protocol_root
   target_group_port     = var.target_group_port_root
