@@ -20,7 +20,7 @@ variable "tags_root" {
 
 ## sg variable 
 
-variable "security_groups" {
+variable "security_groups_root" {
   description = "Security groups configuration"
   type = map(any)
 
@@ -33,46 +33,96 @@ variable "common_tags" {
 
 ## alb 
 
-variable "lb_name" {
+variable "lb_name_root" {
   type = string
 }
 
-variable "target_group_name" {
+variable "target_group_name_root" {
   type = string
 }
 
-variable "target_group_protocol" {
+variable "target_group_protocol_root" {
   type = string
 }
 
-variable "target_group_port" {
+variable "target_group_port_root" {
   type = number
 }
 
-variable "health_check_path" {
+variable "health_check_path_root" {
   type = string
 }
 
-variable "ssl_policy" {
+variable "ssl_policy_root" {
   type = string
 }
-variable "health_check_protocol" {
-  type = string
-}
-
-variable "lb_listener_protocol" {
+variable "health_check_protocol_root" {
   type = string
 }
 
-variable "lb_listener_port" {
+variable "lb_listener_protocol_root" {
+  type = string
+}
+
+variable "lb_listener_port_root" {
   type = number
 }
 
-variable "lb_listner_certificate_arn" {
+variable "lb_listner_certificate_arn_root" {
   type    = string
   default = null
 }
 
 variable "common_tags" {
   type = map(string)
+}
+
+## Autoscaling groups 
+
+variable "asg_name_root" {
+  type = string
+}
+
+variable "ami_id_root" {
+  type = string
+}
+
+variable "instance_type_root" {
+  type = string
+}
+
+variable "key_name_root" {
+  type = string
+}
+
+variable "iam_instance_profile_name_root" {
+  type = string
+}
+
+variable "security_group_ids_root" {
+  type = list(string)
+}
+
+variable "user_data_root" {
+  type = string
+}
+
+variable "max_size_root" {
+  type = number
+}
+
+variable "min_size_root" {
+  type = number
+}
+
+variable "subnet_ids_root" {
+  type = list(string)
+}
+
+variable "alb_resource_label_root" {
+  type = string
+}
+
+variable "target_group_arns_root" {
+  type = list(string)
 }

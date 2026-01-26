@@ -13,7 +13,7 @@ module "vpc" {
 }
 
 module "security_group" {
-  for_each = var.security_groups
+  for_each = var.security_groups_root
   source   = "./Modules/security-group"
 
   sg_name = each.key
@@ -28,23 +28,51 @@ module "security_group" {
 module "alb" {
   source = "../../modules/alb"
 
-  lb_name               = var.lb_name
+  lb_name               = var.lb_name_root 
   lb_security_group_ids = [module.security_group["alb-sg"].sg_id]
-  lb_subnet_ids         = module.vpc.public_subnet_ids
+  lb_subnet_ids         = module.vpc.public_subnet_ids_root
 
-  vpc_id                = module.vpc.vpc_id
-  target_group_name     = var.target_group_name
-  target_group_protocol = var.target_group_protocol
-  target_group_port     = var.target_group_port
+  vpc_id                = module.vpc.vpc_id_root
+  target_group_name     = var.target_group_name_root
+  target_group_protocol = var.target_group_protocol_root
+  target_group_port     = var.target_group_port_root
 
-  health_check_path     = var.health_check_path
-  health_check_protocol = var.health_check_protocol
+  health_check_path     = var.health_check_path_root
+  health_check_protocol = var.health_check_protocol_root
 
-  lb_listener_port      = var.lb_listener_port
-  lb_listener_protocol  = var.lb_listener_protocol
-  ssl_policy            = var.ssl_policy
-  lb_listner_certificate_arn = var.lb_listner_certificate_arn
+  lb_listener_port      = var.lb_listener_port_root
+  lb_listener_protocol  = var.lb_listener_protocol_root
+  ssl_policy            = var.ssl_policy_root
+  lb_listner_certificate_arn = var.lb_listner_certificate_arn_root
 
   tags = var.common_tags
 }
+
+module "ASG" {
+  source = "../../Modules/asg"
+
+  # Launch template 
+  asg_name = var.asg_name_root
+  ami_id = var.ami_id_root 
+  instance_type = var.instance_type_root
+  key_name = var.key_name_root
+
+  # Iam Instance Profile
+  iam_instance_profile_name = var.iam_instance_profile_name_root
+
+  # Security group
+  security_group_ids = var.security_group_ids_root
+  target_group_arns = var.target_group_arns_root
+
+  # user data 
+  user_data = var.user_data_root
+
+  # Autoscaling_group
+  max_size = var.max_size_root
+  min_size = var.min_size_root
+  subnet_ids = var.subnet_ids_root
+  alb_resource_label = var.alb_resource_label_root
+
+}
+
 

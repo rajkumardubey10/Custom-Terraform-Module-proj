@@ -25,6 +25,7 @@ variable "subnet_ids" {
 
 variable "target_group_arns" {
   type = list(string)
+  default = [ ]
 }
 
 variable "key_name" {

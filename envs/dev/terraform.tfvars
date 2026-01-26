@@ -19,7 +19,7 @@ tags_root = {
 
 ## sg .tfvars
 
-security_groups = {
+security_groups_root = {
 
   alb-sg = {
     ingress_rules = [
