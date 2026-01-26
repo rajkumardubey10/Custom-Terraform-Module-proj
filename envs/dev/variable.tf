@@ -22,20 +22,7 @@ variable "tags_root" {
 
 variable "security_groups" {
   description = "Security groups configuration"
-  type = map(object({
-    ingress_rules = list(object({
-      from_port   = number
-      to_port     = number
-      protocol    = string
-      cidr_blocks = optional(list(string))
-    }))
-    egress_rules = optional(list(object({
-      from_port   = number
-      to_port     = number
-      protocol    = string
-      cidr_blocks = optional(list(string))
-    })))
-}))
+  type = map(any)
 
 }
 
