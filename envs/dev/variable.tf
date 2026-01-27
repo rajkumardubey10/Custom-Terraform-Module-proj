@@ -95,10 +95,6 @@ variable "iam_instance_profile_name_root" {
   type = string
 }
 
-variable "security_group_ids_root" {
-  type = list(string)
-}
-
 variable "user_data_root" {
   type = string
 }
@@ -111,14 +107,7 @@ variable "min_size_root" {
   type = number
 }
 
-variable "subnet_ids_root" {
-  type = list(string)
-}
 
 variable "alb_resource_label_root" {
   type = string
-}
-
-variable "target_group_arns_root" {
-  type = list(string)
 }

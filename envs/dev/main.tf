@@ -20,7 +20,7 @@ module "security_group" {
   vpc_id  = module.vpc.vpc_id
 
   ingress_rules = each.value.ingress_rules
-  egress_rules  = lookup(each.value, "egress_rules", null)
+  egress_rules  = lookup(each.value, "egress_rules", [])
 
   tags = var.common_tags
 }
@@ -30,7 +30,7 @@ module "alb" {
 
   lb_name               = var.lb_name_root 
   lb_security_group_ids = [module.security_group["alb-sg"].security_group_id]
-  lb_subnet_ids         = module.vpc.public_subnet_ids
+  lb_subnet_ids         = values(module.vpc.public_subnet_ids)
 
   vpc_id                = module.vpc.vpc_id
   target_group_name     = var.target_group_name_root
@@ -61,8 +61,8 @@ module "ASG" {
   iam_instance_profile_name = var.iam_instance_profile_name_root
 
   # Security group
-  security_group_ids = var.security_group_ids_root
-  target_group_arns = var.target_group_arns_root
+  security_group_ids = [module.security_group["app-sg"].security_group_id]
+  target_group_arns = [module.alb.target_group_arn]
 
   # user data 
   user_data = var.user_data_root
@@ -70,7 +70,7 @@ module "ASG" {
   # Autoscaling_group
   max_size = var.max_size_root
   min_size = var.min_size_root
-  subnet_ids = var.subnet_ids_root
+  subnet_ids = values(module.vpc.private_subnet_ids)
   alb_resource_label = var.alb_resource_label_root
 
 }
