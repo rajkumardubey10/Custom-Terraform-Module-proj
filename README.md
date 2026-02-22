@@ -360,7 +360,6 @@ Confirm with `yes`.
 ## 📌 Future Enhancements
 
 - Enable HTTPS using ACM
-- Configure S3 remote backend
 - Add CloudWatch monitoring
 - Implement Blue/Green deployment
 - Integrate CI/CD pipeline
